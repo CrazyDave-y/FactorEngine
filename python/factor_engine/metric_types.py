@@ -1,0 +1,61 @@
+"""多期限逐 lane 指标的公开列顺序。"""
+
+from enum import IntEnum
+
+
+class Metric(IntEnum):
+    """公开评分只返回 PearsonIC 和 RankIC。"""
+
+    PEARSON = 0
+    RANK_IC = 1
+
+
+METRIC_COUNT = len(Metric)
+
+
+class SumCount(IntEnum):
+    SUM = 0
+    COUNT = 1
+
+
+SUM_COUNT_WIDTH = len(SumCount)
+MIN_CORRELATION_PAIRS = 3
+CORRELATION_TOLERANCE = 1e-10
+MAX_EXACT_DOUBLE_INTEGER = 2**53
+
+
+class NativeLimit(IntEnum):
+    ABI_VERSION = 4
+    NO_INDEX = -1
+    INT32_MAX = 2**31 - 1
+    INT64_MAX = 2**63 - 1
+    CUDA_THREADS_PER_BLOCK = 256
+    CUDA_MAX_BATCH_LANES = 32
+    MAX_RANK_TIME = 24576
+    CUDA_SHORT_CAPACITY = 3840
+    CUDA_LONG_CAPACITY = 23552
+
+
+class CudaStatus(IntEnum):
+    SUCCESS = 0
+    INVALID_ARGUMENT = -1
+    OPERATION_FAILED = -2
+    DEVICE_ERROR = -3
+    INTERNAL_ERROR = -4
+    UNEXPECTED_INPUT_COPY = -5
+    ALLOCATION_FAILED = -9
+    INVALID_EXPORT_SIZE = -12
+
+
+class CudaRuntimeStatus(IntEnum):
+    WORKSPACE_ALLOCATION_FAILED = -102
+
+
+class CpuMemoryAllowance(IntEnum):
+    TARGET_RANK_CACHE_ENTRIES = 8
+    RANK_GROWTH_ALLOWANCE = 4
+    RANK_THREAD_OVERHEAD_BYTES = 8192
+    ROLLING_ALLOCATION_OVERHEAD_BYTES = 4096
+    EXTREMA_ENTRY_ALLOWANCE_BYTES = 64
+    NODE_METADATA_ALLOWANCE_BYTES = 128
+    THREAD_METADATA_ALLOWANCE_BYTES = 2 * 1024**2

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "factor-engine-optimized"
+version = "1.0.0"
+description = "C++ and CUDA engine for factor calculation and search"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24"]
+license = {text = "Apache-2.0"}
+authors = [{name = "FactorEngine contributors"}]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pyright>=1.1.414", "ruff==0.11.13"]
+# 原生 CUDA Runtime 用 CMake 构建，不依赖 Python CUDA 包。
+
+[tool.setuptools]
+package-dir = {"" = "python"}
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[tool.pytest.ini_options]
+pythonpath = ["python", "."]
+addopts = "-q"
+norecursedirs = ["external", ".git", ".venv", "build", "build-*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["F401", "F811", "F821", "F841"]
+
+[tool.pyright]
+include = ["python", "examples", "scripts", "tests"]
+exclude = ["**/build*", "**/.venv"]
+extraPaths = ["python", "."]
+typeCheckingMode = "basic"
